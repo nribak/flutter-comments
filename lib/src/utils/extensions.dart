@@ -73,8 +73,5 @@ extension IntegerExtensions on int {
 }
 
 extension GenericExtensions<T> on T {
-  T also(void Function(T value) apply) {
-    apply(this);
-    return this;
-  }
+  R let<R>(R Function(T value) mapper) => mapper(this);
 }

@@ -1,16 +1,21 @@
 import 'package:comments_app/src/app.dart';
 import 'package:comments_app/src/data/blocs/comments/comments_events.dart';
 import 'package:comments_app/src/data/blocs/comments_bloc.dart';
+import 'package:comments_app/src/data/di/app_config.dart';
 import 'package:comments_app/src/data/di/app_di_resolver.dart';
 import 'package:comments_app/src/data/di/app_injector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+_setup() async {
+  await dotenv.load();
+
+  diSetup(AppConfig.instance().environment);
+}
 
 void main() async {
-  await dotenv.load();
-  diSetup(AppEnvironment.prod);
+  await _setup();
   runApp(MaterialApp(
       title: "comments app",
       darkTheme: ThemeData.dark(),
