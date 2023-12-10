@@ -16,7 +16,20 @@ class HTTPClientRequest {
   HTTPClientRequest({required this.path, required this.method, this.body, this.urlParams});
 }
 
+class HTTPErrorResponse {
+  final String message;
+  final String error;
+  final int statusCode;
+  HTTPErrorResponse(this.message, this.error, this.statusCode);
 
+  factory HTTPErrorResponse.fromJSON(Map<String, dynamic> raw) =>
+      HTTPErrorResponse(
+          raw['message'],
+          raw['error'],
+          raw['statusCode']
+      );
+
+}
 class HTTPClientResponse<T> {
   final dynamic _raw;
   final int responseCode;
@@ -28,6 +41,8 @@ class HTTPClientResponse<T> {
   R asObject<R>(R Function(Map<String, dynamic> raw) mapper) => mapper(_raw);
 
   List<R> asList<R>(R Function(Map<String, dynamic> raw) mapper) => (_raw as List<dynamic>).fixedListMap((el) => mapper(el));
+
+  HTTPErrorResponse? asError() => !this.isSuccess() ? HTTPErrorResponse.fromJSON(_raw) : null;
 }
 
 class HTTPClient {
@@ -46,16 +61,14 @@ class HTTPClient {
       req.headers.addAll({'Content-Type': 'application/json'});
       req.body = jsonEncode(request.body);
     }
-
-    try {
-      final res = await client.send(req);
-      final json = await res.stream.bytesToString();
-      final raw = jsonDecode(json);
-      return HTTPClientResponse(responseCode: res.statusCode, raw: raw);
-    } on Exception catch(e) {
-      print(jsonEncode(e));
-      return HTTPClientResponse(responseCode: 500, raw: null);
+    final res = await client.send(req);
+    final json = await res.stream.bytesToString();
+    final raw = jsonDecode(json);
+    final response = HTTPClientResponse<R>(responseCode: res.statusCode, raw: raw);
+    if(!response.isSuccess()) {
+      print("HTTP Error to ${req.url}: $raw");
     }
+    return response;
   }
 
 

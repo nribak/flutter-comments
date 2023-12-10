@@ -19,14 +19,18 @@ class CommentsBloc extends Bloc<CommentsChangeEvent, CommentsDataState> {
     on<ChildCommentsEvent>((event, emit) async {
       emit(state.copy(isLoading: true));
       final childComments = await repository.childCommentsOf(event.parentId);
-      emit(CommentsDataState(isLoading: false, comments: childComments.children,  parentComment: childComments.comment));
+      if(childComments != null) {
+        emit(CommentsDataState(isLoading: false, comments: childComments.children,  parentComment: childComments.comment));
+      }
     });
 
     on<PostCommentEvent>((event, emit) async {
       emit(state.copy(isLoading: true));
       final comment = await repository.createComment(event.title, event.subtitle, event.ref);
-      final commentsList = [...state.comments, comment];
-      emit(state.copy(isLoading: false, comments: commentsList));
+      if(comment != null) {
+        final commentsList = [...state.comments, comment];
+        emit(state.copy(isLoading: false, comments: commentsList));
+      }
     });
 
   }

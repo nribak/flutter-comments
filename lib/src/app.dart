@@ -5,6 +5,7 @@ import 'package:comments_app/src/widgets/comments_list_widget.dart';
 import 'package:comments_app/src/widgets/full_comment_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'utils/types.dart';
 
@@ -14,6 +15,8 @@ class App extends StatelessWidget {
   const App({super.key, this.parentCommentId});
 
   void _showDialog(BuildContext context) {
+    final pong = dotenv.env['PING'];
+    print(pong);
     final bloc = context.read<CommentsBloc>();
     showDialog<NewCommentData>(
         context: context,

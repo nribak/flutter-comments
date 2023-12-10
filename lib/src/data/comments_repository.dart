@@ -9,11 +9,11 @@ class CommentsRepository {
   Future<List<SummaryAppComment>> list() {
     return _apiProvider.list();
   }
-  Future<AppCommentChildren> childCommentsOf(String id) {
+  Future<AppCommentChildren?> childCommentsOf(String id) {
     return _apiProvider.childComments(id);
   }
 
-  Future<AppComment> createComment(String title, String? subtitle, String? parentId) {
+  Future<AppComment?> createComment(String title, String? subtitle, String? parentId) {
     return _apiProvider.postComment(title, subtitle, parentId);
   }
 }
