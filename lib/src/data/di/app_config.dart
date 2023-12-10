@@ -19,11 +19,12 @@ class AppConfig {
 
   AppConfig._internal();
 
-  String get apiBaseUrl => dotenv.env['API_BASE_URL'] ?? '';
-  String get apiKey => dotenv.env['API_KEY'] ?? '';
-  String get userId => dotenv.env['USER_ID'] ?? '';
+  String get apiBaseUrl => dotenv.get('API_BASE_URL');
+  String get apiKey => dotenv.get('API_KEY');
+  String get userId => dotenv.get('USER_ID');
+
   AppEnvironment get environment =>
-      dotenv.env['ENV'].let((env) => env == 'production' ? AppEnvironment.production : AppEnvironment.development);
+      dotenv.get('ENV').let((env) => env == 'production' ? AppEnvironment.production : AppEnvironment.development);
 
   factory AppConfig.instance() {
     var value = _instance;
