@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../fibonacci/widgets/fibonacci_bloc_widget.dart';
-import '../fibonacci/widgets/fibonacci_statefull_widget.dart';
-import '../fibonacci/widgets/fibonacci_stream_widget.dart';
+import 'fibonacci/widgets/fibonacci_bloc_widget.dart';
+import 'fibonacci/widgets/fibonacci_statefull_widget.dart';
+import 'fibonacci/widgets/fibonacci_stream_widget.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

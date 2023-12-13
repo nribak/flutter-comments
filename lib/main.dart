@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_flutter/widgets/app.dart';
+import 'package:learning_flutter/app.dart';
 
 void main() {
   runApp(MaterialApp(
