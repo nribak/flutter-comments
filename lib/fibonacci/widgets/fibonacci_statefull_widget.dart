@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../logic/fibonacci_state.dart';
+import '../logic/states/fibonacci_state.dart';
 import 'common/fiboanacci_input_widget.dart';
 
 class FibonacciStatefulWidget extends StatefulWidget {

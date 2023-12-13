@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 
-import 'fibonacci_state.dart';
+import 'states/fibonacci_state.dart';
 
 class FibonacciStreamBloc {
   final _valueSubject = PublishSubject<int>();

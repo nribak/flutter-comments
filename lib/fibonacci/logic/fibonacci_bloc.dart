@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-import 'fibonacci_state.dart';
+import 'states/fibonacci_state.dart';
 
 final class CalculationEvent {
   final int input;
