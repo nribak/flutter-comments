@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../logic/fibonacci_stream_bloc.dart';
-import 'common/fiboanacci_input_widget.dart';
 
 class FibonacciStreamWidget extends StatelessWidget {
   FibonacciStreamWidget({super.key});
@@ -12,7 +11,22 @@ class FibonacciStreamWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
         children: [
-          FibonacciInputWidget(calculator: bloc.applyValue),
+          Row(
+            children: [
+              Expanded(
+                  child: TextField(
+                    onChanged: bloc.setValue,
+                    decoration: const InputDecoration(label: Text("enter number")),
+                    keyboardType: TextInputType.number,
+                  )
+              ),
+              ElevatedButton(
+                  onPressed: bloc.applyValue,
+                  child: const Text("calculate")
+              )
+
+            ]
+          ),
           const SizedBox(height: 25),
           Row(
             children: [

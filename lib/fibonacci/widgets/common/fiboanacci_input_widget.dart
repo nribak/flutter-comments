@@ -16,25 +16,19 @@ class FibonacciInputWidget extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(15),
-        child: Column(
-            children: [
-              TextField(
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
                 controller: controller,
                 decoration: const InputDecoration(
                     label: Text("enter number")
                 ),
                 keyboardType: TextInputType.number,
               ),
-              const SizedBox(height: 20),
-              SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                      onPressed: _handleClick,
-                      child: const Text("calculate")
-                  )
-              ),
-              const SizedBox(height: 20)
-            ]
+            ),
+            ElevatedButton(onPressed: _handleClick, child: const Text("calculate"))
+          ],
         ),
       ),
     );

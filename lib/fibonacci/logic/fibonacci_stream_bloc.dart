@@ -5,8 +5,9 @@ import 'package:rxdart/rxdart.dart';
 import 'states/fibonacci_state.dart';
 
 class FibonacciStreamBloc {
-  final _valueSubject = PublishSubject<int>();
+  final _valueSubject = PublishSubject<String>();
   final _loadingSubject = PublishSubject<bool>();
+  final _submitSubject = PublishSubject<bool>();
 
   final _calculationTransformer = StreamTransformer<int, FibonacciState>.fromHandlers(
       handleData: (input, sink) async {
@@ -16,20 +17,23 @@ class FibonacciStreamBloc {
       }
   );
 
-  Stream<FibonacciState> get dataStream => _valueSubject.transform(DoStreamTransformer<int>(
-    onData: (value) {
-      _loadingSubject.sink.add(true);
-    }
-  )).transform(_calculationTransformer).transform(DoStreamTransformer<FibonacciState>(
-    onData: (value) {
-      _loadingSubject.sink.add(false);
-    }
+
+  Stream<FibonacciState> get dataStream =>
+      _submitSubject.withLatestFrom(_valueSubject, (_, value) => value)
+      .map((event) => int.parse(event))
+      .transform(DoStreamTransformer<int>(onData: (value) => _loadingSubject.sink.add(true)))
+      .transform(_calculationTransformer)
+      .transform(DoStreamTransformer<FibonacciState>(onData: (value) => _loadingSubject.sink.add(false)
   ));
+
 
   Stream<bool> get isLoadingStream => _loadingSubject.stream;
 
-  void applyValue(int value) {
+  void setValue(String value) {
     _valueSubject.sink.add(value);
   }
 
+  void applyValue() {
+    _submitSubject.sink.add(true);
+  }
 }
