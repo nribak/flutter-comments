@@ -6,10 +6,9 @@ import 'package:comments_app/src/data/di/app_di_resolver.dart';
 import 'package:comments_app/src/data/di/app_injector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 _setup() async {
-  await dotenv.load();
+  // await dotenv.load();
 
   diSetup(AppConfig.instance().environment);
 }
