@@ -7,7 +7,7 @@ import 'states/fibonacci_state.dart';
 class FibonacciStreamBloc {
   final _valueSubject = PublishSubject<String>();
   final _loadingSubject = PublishSubject<bool>();
-  final _submitSubject = PublishSubject<bool>();
+  final _submitSubject = PublishSubject<void>();
 
   final _calculationTransformer = StreamTransformer<int, FibonacciState>.fromHandlers(
       handleData: (input, sink) async {
@@ -23,17 +23,16 @@ class FibonacciStreamBloc {
       .map((event) => int.parse(event))
       .transform(DoStreamTransformer<int>(onData: (value) => _loadingSubject.sink.add(true)))
       .transform(_calculationTransformer)
-      .transform(DoStreamTransformer<FibonacciState>(onData: (value) => _loadingSubject.sink.add(false)
-  ));
-
+      .transform(DoStreamTransformer<FibonacciState>(onData: (value) => _loadingSubject.sink.add(false)));
 
   Stream<bool> get isLoadingStream => _loadingSubject.stream;
+
 
   void setValue(String value) {
     _valueSubject.sink.add(value);
   }
 
   void applyValue() {
-    _submitSubject.sink.add(true);
+    _submitSubject.sink.add(null);
   }
 }

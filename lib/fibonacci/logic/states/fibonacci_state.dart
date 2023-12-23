@@ -7,8 +7,12 @@ class FibonacciState {
 
   FibonacciState(this.input, this.output, this.time);
 
+  FibonacciState copy({int? input, int? output, int? time}) =>
+      FibonacciState(input ?? this.input, output ?? this.output, time ?? this.time);
+
   String get resultText => "fib($input) = $output measured time $time ms";
 }
+
 
 Future<int> calcFibonacciAsync(int input) => compute(calcFibonacci, input);
 

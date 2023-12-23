@@ -24,7 +24,6 @@ class FibonacciStreamWidget extends StatelessWidget {
                   onPressed: bloc.applyValue,
                   child: const Text("calculate")
               )
-
             ]
           ),
           const SizedBox(height: 25),
