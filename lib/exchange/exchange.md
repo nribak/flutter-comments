@@ -21,18 +21,6 @@
 - When tapping on a specific currency you should be navigates to a secondary screen
 - The secondary screen should display the specified currency history rates.
 
-## Evaluation:
-
-### The assignment will be evaluated based on the following criteria:
-
-- Functionality: The app should meet all the specified requirements and fetch, display, and cache currency rates correctly.
-- Code Quality: The code should be well-structured, readable, and maintainable, following Flutter best practices.
-- User Experience: The app should have a user-friendly and intuitive interface that is easy to navigate and understand.
-
-
-## Submittion
-- Once you are done coding, please zip the your project and send it.
-
 ## API Documentation
 | method | path | response |
 |---|---|---|
@@ -47,4 +35,18 @@
 curl --location 'https://sample-comments-service-5y6owysdhq-uc.a.run.app/fx/current' \
 --header 'api-key: 795cfec4-68b1-42d6-baa0-16a53ce09a1d'
 ```
+
+## Evaluation:
+
+### The assignment will be evaluated based on the following criteria:
+
+- Functionality: The app should meet all the specified requirements and fetch, display, and cache currency rates correctly.
+- Code Quality: The code should be well-structured, readable, and maintainable, following Flutter best practices.
+- User Experience: The app should have a user-friendly and intuitive interface that is easy to navigate and understand.
+
+
+## Submittion
+- Once you are done coding, please zip the your project and send it.
+
+
 #### Happy coding!

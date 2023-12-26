@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:learning_flutter/exchange/data/api_provider.dart';
-import 'package:learning_flutter/exchange/data/local_storage_provider.dart';
+import 'package:learning_flutter/exchange/data/di-resolver.dart';
 import 'package:learning_flutter/exchange/data/models.dart';
 
 import '../data/exchange_repository.dart';
@@ -9,7 +8,7 @@ sealed class FxEvent {}
 final class FxStartEvent extends FxEvent {}
 final class FxStopEvent extends FxEvent {}
 
-const interval = 1 ;
+const interval = 1;
 
 class FxState {
   final CurrentCurrencies? currencies;
@@ -37,10 +36,8 @@ class FxBloc extends Bloc<FxEvent, FxState> {
     });
   }
 
-
-
   factory FxBloc.newInstance() {
-    final bloc = FxBloc(ExchangeRepository(apiProvider: APIProvider(), localStorageProvider: LocalStorageProvider()));
+    final bloc = FxBloc(DIResolver.instance().repository);
     bloc._init();
     return bloc;
   }

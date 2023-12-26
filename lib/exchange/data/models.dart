@@ -2,11 +2,12 @@ class Currency {
   final String key;
   final String name;
   final double exchange;
+  final int? timestamp;
 
-  Currency(this.key, this.name, this.exchange);
+  Currency(this.key, this.name, this.exchange, this.timestamp);
 
   factory Currency.fromMap(Map<String, dynamic> map) =>
-      Currency(map['key'], map['name'], map['exchange']);
+      Currency(map['key'], map['name'], map['exchange'], map['timestamp']);
 }
 
 class CurrentCurrencies {

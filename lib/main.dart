@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:learning_flutter/app_menu.dart';
+import 'package:learning_flutter/exchange/di/injector.dart';
 import 'package:learning_flutter/extensions.dart';
 
 void main() {
+  Injector.setup();
   runApp(MaterialApp(
     title: "learnings",
     darkTheme: ThemeData.dark(useMaterial3: true),

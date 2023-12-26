@@ -40,6 +40,9 @@ dependencies:
   rxdart: ^0.27.7
   http: ^1.1.2
   sqflite: ^2.3.0
+  kiwi: ^4.1.0
+  kiwi_generator: ^4.1.0
+  build_runner: ^2.4.7
 
 dev_dependencies:
   flutter_test:

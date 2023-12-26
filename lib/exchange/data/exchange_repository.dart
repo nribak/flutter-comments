@@ -17,11 +17,13 @@ class ExchangeRepository {
     }
   }
 
-  Stream<CurrentCurrencies> listenForCurrenciesEvery(int seconds, bool Function() callback) {
+  Stream<CurrentCurrencies> listenForCurrenciesEvery(int seconds, bool Function() isActiveCallback) {
     return apiProvider
-        .listenForCurrencies(seconds, callback)
+        .listenForCurrencies(seconds, isActiveCallback)
         .transform(DoStreamTransformer(onData: _cacheItems));
   }
 
-
+  Stream<Currency> getHistoryCurrencies(String key) {
+    return localStorageProvider.getCurrencyByKey(key);
+  }
 }

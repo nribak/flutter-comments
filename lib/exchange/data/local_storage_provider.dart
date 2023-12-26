@@ -7,21 +7,14 @@ const _nameColumnName = "name";
 const _exchangeColumnName = "exchange";
 const _timestampColumnName = "timestamp";
 
+const _createTableQuery = "CREATE TABLE $_tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, $_keyColumnName TEXT NOT NULL, $_nameColumnName TEXT NOT NULL, $_exchangeColumnName REAL NOT NULL, $_timestampColumnName INTEGER)";
+
 class LocalStorageProvider {
   final _databaseFuture = openDatabase(
     'exchange.db',
     version: 1,
     onCreate: (database, ver) async {
-      await database.execute(
-        """
-        CREATE TABLE $_tableName (
-             key TEXT PRIMARY KEY,
-             name TEXT NOT NULL,
-             exchange REAL NOT NULL
-             timestamp INTEGER
-             )
-        """
-      );
+      await database.execute(_createTableQuery);
     }
   );
 
@@ -34,5 +27,19 @@ class LocalStorageProvider {
       _timestampColumnName: timestamp
     });
   }
+
+  Stream<Currency> getCurrencyByKey(String key) async* {
+    final db = await _databaseFuture;
+    final cursor = await db.queryCursor(
+        _tableName,
+      where: "key = ?",
+      whereArgs: [key]
+    );
+    while(await cursor.moveNext()) {
+      yield Currency.fromMap(cursor.current);
+    }
+  }
+
+
 
 }
