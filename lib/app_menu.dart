@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_flutter/app.dart';
 import 'package:learning_flutter/blog/widgets/blog_app.dart';
+import 'package:learning_flutter/exchange/widgets/current_currencies_widget.dart';
 import 'package:learning_flutter/fibonacci/fibonacci_app.dart';
 
 class AppMenuItem {
@@ -28,6 +29,12 @@ class AppMenuItem {
    builder: (_) => BlogApp()
  );
 
-  static final routes = [home, streams, blog];
-  static final items = [streams, blog];
+ static final currencies = AppMenuItem(
+     title: "Exchange",
+     routeName: "/fx",
+     builder: (_) => CurrentCurrenciesWidget()
+ );
+
+  static final routes = [home, streams, blog, currencies];
+  static final items = [streams, blog, currencies];
 }
