@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:learning_flutter/exchange/data/di-resolver.dart';
 import 'package:learning_flutter/exchange/data/models.dart';
+import 'package:learning_flutter/exchange/di/di_injector.dart';
 
 import '../data/exchange_repository.dart';
 
@@ -25,9 +25,9 @@ class HistoryBloc extends Bloc<HistoryBlocEvent, HistoryBlocState> {
   HistoryBloc({required this.repository}): super(HistoryBlocState([]));
 
   void _init() {
-    on<HistoryBlocEvent>((event, emit) {
+    on<HistoryBlocEvent>((event, emit) async {
       final stream = repository.getHistoryCurrencies(event.key);
-      emit.forEach(
+      await emit.forEach(
           stream,
           onData: (data) => state.append(data)
       );
@@ -36,7 +36,7 @@ class HistoryBloc extends Bloc<HistoryBlocEvent, HistoryBlocState> {
 
 
   factory HistoryBloc.newInstance() {
-    final bloc = HistoryBloc(repository: DIResolver.instance().repository);
+    final bloc = HistoryBloc(repository: Injector.instance().repository);
     bloc._init();
     return bloc;
   }

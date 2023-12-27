@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:learning_flutter/exchange/data/di-resolver.dart';
 import 'package:learning_flutter/exchange/data/models.dart';
+import 'package:learning_flutter/exchange/di/di_injector.dart';
 
 import '../data/exchange_repository.dart';
 
@@ -13,18 +13,18 @@ const interval = 1;
 class FxState {
   final CurrentCurrencies? currencies;
   final bool running;
-  FxState({required this.currencies, required this.running});
+  const FxState({required this.currencies, required this.running});
 }
 
 class FxBloc extends Bloc<FxEvent, FxState> {
   final ExchangeRepository repo;
 
-  FxBloc(this.repo): super(FxState(currencies: null, running: false));
+  FxBloc(this.repo): super(const FxState(currencies: null, running: false));
 
 
   void _init() {
     on<FxStartEvent>((event, emit) async {
-      emit(FxState(currencies: null, running: true));
+      emit(const FxState(currencies: null, running: true));
       final stream = repo.listenForCurrenciesEvery(interval, () => state.running);
       await emit.forEach(stream,
           onData: (data)  {
@@ -37,7 +37,8 @@ class FxBloc extends Bloc<FxEvent, FxState> {
   }
 
   factory FxBloc.newInstance() {
-    final bloc = FxBloc(DIResolver.instance().repository);
+    // final bloc = FxBloc(DIResolver.instance().repository);
+    final bloc = FxBloc(Injector.instance().repository);
     bloc._init();
     return bloc;
   }

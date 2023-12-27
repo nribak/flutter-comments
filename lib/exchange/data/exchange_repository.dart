@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:injectable/injectable.dart';
 import 'package:learning_flutter/exchange/data/api_provider.dart';
 import 'package:learning_flutter/exchange/data/local_storage_provider.dart';
 import 'package:learning_flutter/exchange/data/models.dart';
 import 'package:rxdart/rxdart.dart';
 
+@Injectable()
 class ExchangeRepository {
   final APIProvider apiProvider;
   final LocalStorageProvider localStorageProvider;

@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:learning_flutter/exchange/data/models.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -9,6 +10,7 @@ const _timestampColumnName = "timestamp";
 
 const _createTableQuery = "CREATE TABLE $_tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, $_keyColumnName TEXT NOT NULL, $_nameColumnName TEXT NOT NULL, $_exchangeColumnName REAL NOT NULL, $_timestampColumnName INTEGER)";
 
+@LazySingleton()
 class LocalStorageProvider {
   final _databaseFuture = openDatabase(
     'exchange.db',
