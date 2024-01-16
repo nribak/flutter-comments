@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 _setup() async {
-  // await dotenv.load();
-
-  diSetup(AppConfig.instance().environment);
+  diSetup(AppEnvironment.production);
 }
 
 void main() async {
